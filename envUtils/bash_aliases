@@ -1,0 +1,19 @@
+
+
+# 1. For command prompt to include date, pwd etc.
+
+  git_branch () { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'; }
+
+  NOW=$(date +"%m-%d")
+  DATE='\e[38;5;245m\]$NOW'; DATE=''$DATE
+  TIME='\e[38;5;245m\]\t'; TIME=' '$TIME
+  USER='\e[38;5;2m\]\u'; USER=' '$USER
+  AT='\e[38;5;7m\]@'; AT=''$AT
+  HOST='\e[38;5;2m\]\h'; HOST=''$HOST
+  LOCATION=' \e[38;5;7m\]`pwd | sed "s#\(\).*\(/[^/]\{1,\}/[^/]\{1,\}/[^/]\{1,\}\)/\{0,1\}#\1_\2#g"`'
+  BRANCH=' \e[38;5;214m\]$(git_branch)\[\e[00m\]\n\$ '
+
+  PS1=$DATE$TIME$USER$AT$HOST$LOCATION$BRANCH
+  PS2='\[\e[38;5;10m\]>'
+
+
